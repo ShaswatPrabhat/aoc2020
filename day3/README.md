@@ -1,4 +1,4 @@
-For Day 2:
+For Day 3:
 
 Solution in Python uses simple string parsing to get the combinations of data.
 
