@@ -2,7 +2,7 @@ puzzle = list(map(int, open('input_real.txt').read().splitlines()))
 
 part_1 = part_2 = None
 for idx in range(25, len(puzzle)):
-    prev = puzzle[idx-25: idx]
+    prev = puzzle[idx - 25: idx]
     if not any(num_1 + num_2 == puzzle[idx] and num_1 != num_2
                for num_1 in prev for num_2 in prev):
         part_1 = puzzle[idx]
