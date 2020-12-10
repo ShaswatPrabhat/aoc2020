@@ -1,69 +1,22 @@
-import collections
-import math
-import re
-import sys
+puzzle = list(map(int, open('input_real.txt').read().splitlines()))
 
+part_1 = part_2 = None
+for idx in range(25, len(puzzle)):
+    prev = puzzle[idx-25: idx]
+    if not any(num_1 + num_2 == puzzle[idx] and num_1 != num_2
+               for num_1 in prev for num_2 in prev):
+        part_1 = puzzle[idx]
+        break
+print(part_1)
 
-def solve():
-    lines = [l.rstrip('\n') for l in sys.stdin]
-
-    # part 1:
-    # acc = 0
-    # pc = 0
-    # seen = set()
-    # while True:
-    #     if pc in seen:
-    #         print(acc)
-    #         break
-    #     seen.add(pc)
-    #     line = lines[pc]
-    #     inst, arg = line.split()
-    #     arg = int(arg)
-    #
-    #     if inst == 'jmp':
-    #         pc += arg
-    #         continue
-    #     if inst == 'acc':
-    #         acc += arg
-    #     if inst == 'nop':
-    #         pass
-    #
-    #     pc += 1
-
-    def tryprog(prog):
-        acc = 0
-        pc = 0
-        seen = set()
-        while True:
-            if pc == len(prog):
-                return acc
-            if pc in seen:
-                return None
-            seen.add(pc)
-            line = prog[pc]
-            inst, arg = line.split()
-            arg = int(arg)
-
-            if inst == 'jmp':
-                pc += arg
-                continue
-            if inst == 'acc':
-                acc += arg
-            if inst == 'nop':
-                pass
-
-            pc += 1
-
-    for i in range(len(lines)):
-        prog = lines[:]
-        if prog[i].startswith('jmp'):
-            prog[i] = prog[i].replace('jmp', 'nop')
-        elif prog[i].startswith('nop'):
-            prog[i] = prog[i].replace('nop', 'jmp')
-        x = tryprog(prog)
-        if x:
-            print(x)
-
-
-if __name__ == '__main__':
-    solve()
+for end_idx in range(len(puzzle)):
+    for start_idx in range(end_idx):
+        puzzle_slice = puzzle[start_idx: end_idx]
+        slice_sum = sum(puzzle_slice)
+        if slice_sum < part_1:
+            break
+        elif slice_sum == part_1:
+            part_2 = min(puzzle_slice) + max(puzzle_slice)
+    if part_2:
+        break
+print(part_2)
