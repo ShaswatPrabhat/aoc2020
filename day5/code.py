@@ -1,7 +1,3 @@
-
-def calc_seat_id(boarding_pass):
-    return 8 * int(boarding_pass[:-3], 2) + int(boarding_pass[-3:], 2)
-
 def solve():
     seatIDs = []
 
@@ -21,6 +17,7 @@ def solve():
             print("Your seat is:", t)
             break
         t += 1
+
 
 if __name__ == '__main__':
     solve()
